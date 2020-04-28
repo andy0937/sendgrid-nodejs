@@ -6,18 +6,10 @@ node_js:
   - 10
   - lts/*
   - node
-before_script:
-  - lerna bootstrap
-  - ./test/prism.sh &
-  - sleep 5
+services:
+  - docker
 script:
-  - yarn test:files
-  - yarn test:license
-  - yarn test:typescript
-  - yarn test:mail
-  - yarn test:client
-  - yarn test:helpers
-  - yarn lint
+  - make test-docker
 before_deploy:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
   - git reset HEAD --hard
